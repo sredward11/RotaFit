@@ -39,7 +39,7 @@ export function useRunTracker() {
           now: loc.timestamp,
           lat: loc.coords.latitude,
           lng: loc.coords.longitude,
-        }),
+        })
     );
     subscription.current = sub;
   }, []);
@@ -78,13 +78,13 @@ export function useRunTracker() {
         endedAt: new Date(at).toISOString(),
         distanceMeters: state.distanceMeters,
         durationSeconds: Math.round(
-          elapsedSeconds({ ...state, status: 'finished', finishedAt: at }, at),
+          elapsedSeconds({ ...state, status: 'finished', finishedAt: at }, at)
         ),
         route: simplifyRoute(state.route),
         spotifyTrackName,
       };
     },
-    [state, stopWatching],
+    [state, stopWatching]
   );
 
   const reset = useCallback(() => {

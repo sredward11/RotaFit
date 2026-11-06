@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (error) throw error;
       },
     }),
-    [session, loading],
+    [session, loading]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

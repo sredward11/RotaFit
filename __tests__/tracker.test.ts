@@ -31,7 +31,7 @@ describe('trackerReducer', () => {
     const state = reduce(
       initialTrackerState,
       { type: 'START', now: 0 },
-      { type: 'ADD_POINT', now: 500, lat: -15.79, lng: -47.88 },
+      { type: 'ADD_POINT', now: 500, lat: -15.79, lng: -47.88 }
     );
     expect(state.route).toHaveLength(1);
     expect(state.route[0]).toEqual({ lat: -15.79, lng: -47.88, t: 500 });
@@ -43,7 +43,7 @@ describe('trackerReducer', () => {
       initialTrackerState,
       { type: 'START', now: 0 },
       { type: 'ADD_POINT', now: 0, lat: 0, lng: 0 },
-      { type: 'ADD_POINT', now: 2000, lat: 0, lng: 0.0001 },
+      { type: 'ADD_POINT', now: 2000, lat: 0, lng: 0.0001 }
     );
     expect(state.distanceMeters).toBeGreaterThan(0);
     expect(state.route).toHaveLength(2);
@@ -54,7 +54,7 @@ describe('trackerReducer', () => {
       initialTrackerState,
       { type: 'START', now: 0 },
       { type: 'ADD_POINT', now: 0, lat: 0, lng: 0 },
-      { type: 'ADD_POINT', now: 1000, lat: 0, lng: 0.01 }, // ~1,1 km em 1 s: impossível
+      { type: 'ADD_POINT', now: 1000, lat: 0, lng: 0.01 } // ~1,1 km em 1 s: impossível
     );
     expect(state.route).toHaveLength(1);
     expect(state.distanceMeters).toBe(0);
@@ -64,7 +64,7 @@ describe('trackerReducer', () => {
     const paused = reduce(
       initialTrackerState,
       { type: 'START', now: 0 },
-      { type: 'PAUSE', now: 5000 },
+      { type: 'PAUSE', now: 5000 }
     );
     expect(paused.status).toBe('paused');
     const resumed = trackerReducer(paused, { type: 'RESUME', now: 8000 });
@@ -77,7 +77,7 @@ describe('trackerReducer', () => {
       initialTrackerState,
       { type: 'START', now: 0 },
       { type: 'PAUSE', now: 1000 },
-      { type: 'ADD_POINT', now: 2000, lat: 1, lng: 1 },
+      { type: 'ADD_POINT', now: 2000, lat: 1, lng: 1 }
     );
     expect(state.route).toHaveLength(0);
   });
@@ -87,7 +87,7 @@ describe('trackerReducer', () => {
       initialTrackerState,
       { type: 'START', now: 0 },
       { type: 'PAUSE', now: 1000 },
-      { type: 'FINISH', now: 4000 },
+      { type: 'FINISH', now: 4000 }
     );
     expect(state.status).toBe('finished');
     expect(state.pausedMs).toBe(3000);
@@ -98,7 +98,7 @@ describe('trackerReducer', () => {
     const state = reduce(
       initialTrackerState,
       { type: 'START', now: 0 },
-      { type: 'RESET' },
+      { type: 'RESET' }
     );
     expect(state).toEqual(initialTrackerState);
   });
@@ -114,7 +114,7 @@ describe('elapsedSeconds', () => {
       initialTrackerState,
       { type: 'START', now: 0 },
       { type: 'PAUSE', now: 10_000 },
-      { type: 'RESUME', now: 15_000 },
+      { type: 'RESUME', now: 15_000 }
     );
     expect(elapsedSeconds(state, 20_000)).toBe(15); // 20s totais - 5s de pausa
   });
@@ -123,7 +123,7 @@ describe('elapsedSeconds', () => {
     const state = reduce(
       initialTrackerState,
       { type: 'START', now: 0 },
-      { type: 'PAUSE', now: 10_000 },
+      { type: 'PAUSE', now: 10_000 }
     );
     expect(elapsedSeconds(state, 12_000)).toBe(10); // parado desde os 10s: não avança mais
   });
@@ -132,7 +132,7 @@ describe('elapsedSeconds', () => {
     const state = reduce(
       initialTrackerState,
       { type: 'START', now: 0 },
-      { type: 'FINISH', now: 30_000 },
+      { type: 'FINISH', now: 30_000 }
     );
     expect(elapsedSeconds(state, 999_999)).toBe(30);
   });

@@ -79,7 +79,7 @@ async function insertRun(uid, overrides = {}) {
         r.avg_pace_sec_per_km,
         r.route,
         r.spotify_track_name,
-      ],
+      ]
     );
     return row.id;
   });
@@ -90,11 +90,11 @@ describe('segurança e privacidade', () => {
     const id = await insertRun(ALICE);
     assert.equal(
       (await as(ALICE, () => rows('select id from runs where id = $1', [id]))).length,
-      1,
+      1
     );
     assert.equal(
       (await as(BOB, () => rows('select id from runs where id = $1', [id]))).length,
-      0,
+      0
     );
   });
 
@@ -104,10 +104,10 @@ describe('segurança e privacidade', () => {
         db.query(
           `insert into runs (user_id, started_at, ended_at, distance_meters, duration_seconds, route)
            values ($1, now(), now(), 1000, 300, '[]'::jsonb)`,
-          [BOB],
-        ),
+          [BOB]
+        )
       ),
-      /new row violates row-level security policy/,
+      /new row violates row-level security policy/
     );
   });
 
@@ -125,12 +125,12 @@ describe('segurança e privacidade', () => {
     await as(BOB, () => db.query('delete from runs where id = $1', [id]));
     assert.equal(
       (await as(ALICE, () => rows('select id from runs where id = $1', [id]))).length,
-      1,
+      1
     );
     await as(ALICE, () => db.query('delete from runs where id = $1', [id]));
     assert.equal(
       (await as(ALICE, () => rows('select id from runs where id = $1', [id]))).length,
-      0,
+      0
     );
   });
 });
@@ -150,7 +150,7 @@ describe('restrições dos dados', () => {
         started_at: '2026-09-20T10:30:00Z',
         ended_at: '2026-09-20T10:00:00Z',
       }),
-      /ended_after_started/,
+      /ended_after_started/
     );
   });
 
@@ -159,7 +159,7 @@ describe('restrições dos dados', () => {
     assert.equal(
       (await one('select avg_pace_sec_per_km from runs where id = $1', [id]))
         .avg_pace_sec_per_km,
-      null,
+      null
     );
   });
 
@@ -167,7 +167,7 @@ describe('restrições dos dados', () => {
     const id = await insertRun(ALICE);
     const row = await one(
       'select jsonb_array_length(route) as n from runs where id = $1',
-      [id],
+      [id]
     );
     assert.equal(row.n, 2);
   });

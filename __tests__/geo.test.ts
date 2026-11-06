@@ -93,7 +93,7 @@ describe('estimateCalories', () => {
     expect(estimateCalories(5000, 0)).toBe(0);
     expect(estimateCalories(5000, 1800, 70)).toBeGreaterThan(0);
     expect(estimateCalories(5000, 3600, 70)).toBeGreaterThan(
-      estimateCalories(5000, 1800, 70),
+      estimateCalories(5000, 1800, 70)
     );
   });
 });

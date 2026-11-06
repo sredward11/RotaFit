@@ -20,14 +20,14 @@ async function call(accessToken: string, path: string, init: RequestInit = {}) {
     // Sem dispositivo ativo: o usuário precisa abrir o Spotify e tocar algo antes.
     throw new SpotifyApiError(
       404,
-      'Abra o Spotify e toque uma música antes de controlar por aqui.',
+      'Abra o Spotify e toque uma música antes de controlar por aqui.'
     );
   }
   if (!res.ok) {
     const body = await res.json().catch(() => null);
     throw new SpotifyApiError(
       res.status,
-      body?.error?.message ?? 'Não foi possível falar com o Spotify.',
+      body?.error?.message ?? 'Não foi possível falar com o Spotify.'
     );
   }
   return res.status === 200 ? res.json() : null;

@@ -46,7 +46,7 @@ export async function getRun(id: string): Promise<Run> {
 export async function saveRun(
   input: SaveRunInput,
   userId: string,
-  avgPace: number | null,
+  avgPace: number | null
 ): Promise<string> {
   const { data, error } = await supabase
     .from('runs')

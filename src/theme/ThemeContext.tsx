@@ -31,7 +31,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       .catch(() => undefined);
 
     const sub = Appearance.addChangeListener(({ colorScheme }) =>
-      setSystemScheme(colorScheme),
+      setSystemScheme(colorScheme)
     );
     return () => sub.remove();
   }, []);
@@ -47,7 +47,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(
     () => ({ theme, preference, setPreference }),
-    [theme, preference],
+    [theme, preference]
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

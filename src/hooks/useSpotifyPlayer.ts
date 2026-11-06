@@ -37,7 +37,7 @@ function useControl(action: (token: string) => Promise<unknown>) {
     onSuccess: () => {
       setTimeout(
         () => queryClient.invalidateQueries({ queryKey: ['spotify', 'now-playing'] }),
-        400,
+        400
       );
     },
   });

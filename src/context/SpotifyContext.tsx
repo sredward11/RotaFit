@@ -54,7 +54,7 @@ export function SpotifyProvider({ children }: { children: ReactNode }) {
 
   const [request, response, promptAsync] = AuthSession.useAuthRequest(
     { clientId: spotifyClientId, scopes: SPOTIFY_SCOPES, redirectUri, usePKCE: true },
-    spotifyDiscovery,
+    spotifyDiscovery
   );
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export function SpotifyProvider({ children }: { children: ReactNode }) {
         redirectUri,
         extraParams: { code_verifier: request.codeVerifier },
       },
-      spotifyDiscovery,
+      spotifyDiscovery
     )
       .then(async (result) => {
         const next: SpotifyTokens = {
@@ -108,7 +108,7 @@ export function SpotifyProvider({ children }: { children: ReactNode }) {
     if (!refreshing.current) {
       refreshing.current = AuthSession.refreshAsync(
         { clientId: spotifyClientId, refreshToken: tokens.refreshToken },
-        spotifyDiscovery,
+        spotifyDiscovery
       )
         .then(async (result) => {
           const next: SpotifyTokens = {
@@ -134,7 +134,7 @@ export function SpotifyProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(
     () => ({ tokens, connecting, connect, disconnect, getValidAccessToken }),
-    [tokens, connecting, connect, disconnect, getValidAccessToken],
+    [tokens, connecting, connect, disconnect, getValidAccessToken]
   );
 
   return <SpotifyContext.Provider value={value}>{children}</SpotifyContext.Provider>;

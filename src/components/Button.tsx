@@ -31,17 +31,17 @@ export function Button({
     variant === 'primary'
       ? theme.primary
       : variant === 'danger'
-      ? theme.danger
-      : variant === 'dark'
-      ? '#050505'
-      : theme.glass;
+        ? theme.danger
+        : variant === 'dark'
+          ? '#050505'
+          : theme.glass;
 
   const labelColor =
     variant === 'primary' || variant === 'danger' || variant === 'dark'
       ? theme.onPrimary
       : variant === 'secondary'
-      ? theme.primary
-      : theme.muted;
+        ? theme.primary
+        : theme.muted;
 
   const glow = variant === 'ghost' ? 'transparent' : tint;
 

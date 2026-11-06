@@ -43,7 +43,7 @@ export function routeDistanceMeters(route: RoutePoint[]): number {
 // Ritmo médio em segundos por quilômetro. null se não houve distância percorrida.
 export function averagePaceSecPerKm(
   distanceMeters: number,
-  durationSeconds: number,
+  durationSeconds: number
 ): number | null {
   if (distanceMeters <= 0) return null;
   return durationSeconds / (distanceMeters / 1000);
@@ -77,7 +77,7 @@ export function formatPace(secPerKm: number | null): string {
 export function estimateCalories(
   distanceMeters: number,
   durationSeconds: number,
-  weightKg = 70,
+  weightKg = 70
 ): number {
   if (durationSeconds <= 0) return 0;
   const MET = 9.8;

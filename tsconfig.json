@@ -4,15 +4,20 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "expo-auth-session/build/QueryParams": [
+        "./node_modules/expo-auth-session/build/QueryParams.d.ts"
+      ]
     },
-    "types": ["jest"],
+    "types": [
+      "jest"
+    ],
     "ignoreDeprecations": "6.0"
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "**/*.tsx"
   ]
 }

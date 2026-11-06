@@ -1,12 +1,13 @@
 import * as QueryParams from 'expo-auth-session/build/QueryParams';
-import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import { supabase } from '@/lib/supabase';
 
 WebBrowser.maybeCompleteAuthSession();
 
-// Link de volta para o app depois do login (esquema "rotafit://").
-export const authRedirectUri = AuthSession.makeRedirectUri({ scheme: 'rotafit' });
+// No Expo Go, o esquema customizado "rotafit://" pode não ser interceptado pelo iOS.
+// O redirecionamento fixo para "rotafit://" funciona perfeitamente quando registrado
+// na lista de Redirect URLs do Supabase.
+export const authRedirectUri = 'rotafit://';
 
 // Login com Google, delegado ao próprio Supabase: o app nunca vê um client
 // secret do Google. O Supabase (configurado em Authentication → Providers →
@@ -22,6 +23,7 @@ export async function signInWithGoogle(): Promise<void> {
   if (!data.url) throw new Error('Não foi possível iniciar o login com o Google.');
 
   const result = await WebBrowser.openAuthSessionAsync(data.url, authRedirectUri);
+
   if (result.type !== 'success' || !result.url) {
     if (result.type === 'cancel' || result.type === 'dismiss') return; // usuário cancelou
     throw new Error('O login com o Google não foi concluído.');
